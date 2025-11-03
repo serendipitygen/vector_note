@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-13T14:59:20.410Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": false
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "기반 시스템 구축 및 사용자 인증 구현",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Task 1, '기반 시스템 구축 및 사용자 인증 구현', has a complexity score of 8. Expand this into 6 subtasks. The subtasks should cover: 1. Project structure and Docker setup for all services (FastAPI, React, PostgreSQL, Qdrant). 2. Database schema design and initial migration for users, notes, and chat tables. 3. Backend API endpoint for user registration (signup). 4. Backend API endpoint for user login (signin) and JWT generation. 5. FastAPI dependency/middleware for JWT validation and securing endpoints. 6. Basic frontend setup for user registration and login forms.",
+			"reasoning": "This foundational task is highly complex as it involves setting up a multi-service architecture (backend, frontend, two databases), designing the core database schema, and implementing a critical security feature (authentication) from scratch."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "핵심 노트 관리(CRUD) 기능 개발",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Task 2, '핵심 노트 관리(CRUD) 기능 개발', has a complexity score of 5. Expand this into 4 subtasks. The subtasks should cover the backend API implementation for: 1. Creating a new note. 2. Retrieving a list of notes for the authenticated user and a single note by its ID. 3. Updating an existing note. 4. Deleting a note. All endpoints must be protected and operate only on the authenticated user's data.",
+			"reasoning": "This is a standard CRUD implementation, but its complexity is moderate because it requires integration with the authentication system to ensure proper user data isolation for all operations."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "벡터 임베딩 및 저장 시스템 구축",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Task 3, '벡터 임베딩 및 저장 시스템 구축', has a complexity score of 7. Expand this into 4 subtasks. The subtasks should be: 1. Set up a service or utility to load the KURE-v1 model and generate embeddings from text. 2. Implement a text chunking strategy for long notes. 3. Create an asynchronous background task that takes note content, generates embeddings (for each chunk), and upserts them into a Qdrant collection. 4. Integrate the background task trigger into the 'create note' and 'update note' API endpoints.",
+			"reasoning": "The complexity is high due to the integration of specialized technologies: an ML embedding model and a vector database (Qdrant). It also requires implementing non-trivial logic for asynchronous processing and text chunking to handle long documents efficiently."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "의미 기반 검색 기능 구현",
+			"complexityScore": 6,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Task 4, '의미 기반 검색 기능 구현', has a complexity score of 6. Expand this into 3 subtasks. The subtasks should cover: 1. Creating a new API endpoint `/search` that accepts a user query. 2. Implementing the logic to embed the incoming search query using the KURE-v1 model. 3. Implementing the logic to perform a similarity search in Qdrant with the query vector, retrieve the corresponding note IDs, and return the relevant note data.",
+			"reasoning": "This task is moderately complex. While it builds on the embedding system, it requires creating a new data retrieval pipeline that involves embedding the query, formulating a correct vector search query for Qdrant, and processing the results."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "기본 AI 대화형 어시스턴트 구현",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Task 5, '기본 AI 대화형 어시스턴트 구현', has a complexity score of 7. Expand this into 4 subtasks. The subtasks should be: 1. Create a new API endpoint for the AI chat. 2. Implement the RAG orchestration logic: take a user question, call the semantic search API (from Task 4) to retrieve relevant notes. 3. Design and implement a prompt template that combines the retrieved notes (context) and the user's question. 4. Integrate the Google Gemini API client to send the constructed prompt and process the generated response.",
+			"reasoning": "Complexity is high as this task involves orchestrating multiple components (semantic search, external LLM API) and requires significant work in prompt engineering to ensure the RAG pattern functions effectively."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "다양한 콘텐츠 소스 처리 기능 개발",
+			"complexityScore": 6,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Task 6, '다양한 콘텐츠 소스 처리 기능 개발', has a complexity score of 6. Expand this into 3 subtasks. The subtasks should be: 1. Implement a file upload endpoint and integrate a library (e.g., PyMuPDF) to extract text from uploaded PDF files. 2. Extend the endpoint to handle DOCX files, integrating a library (e.g., python-docx) for text extraction. 3. Implement an endpoint that accepts a URL, scrapes the main content of the web page, and extracts its text.",
+			"reasoning": "This task is moderately complex because it requires integrating and managing multiple third-party libraries for different file formats (PDF, DOCX) and web scraping, each with its own potential for errors and edge cases."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "노트 카테고리 관리 및 필터링 기능 구현",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Task 7, '노트 카테고리 관리 및 필터링 기능 구현', has a complexity score of 5. Expand this into 3 subtasks. The subtasks should be: 1. Create backend CRUD API endpoints for managing categories (create, read, update, delete). 2. Implement API endpoints to associate a note with one or more categories and to remove the association. 3. Modify the 'get all notes' API to accept a category filter parameter.",
+			"reasoning": "The complexity is moderate. It goes beyond a simple CRUD by requiring a new data model (Category) and establishing relationships with existing Notes, which also necessitates modifying existing query logic to support filtering."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "AI 채팅 기능 고도화",
+			"complexityScore": 8,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Task 8, 'AI 채팅 기능 고도화', has a complexity score of 8. Expand this into 4 subtasks. The subtasks should be: 1. Design and implement database models and APIs for managing chat sessions and persisting conversation history. 2. Modify the backend chat endpoint to support streaming responses from the Gemini API using Server-Sent Events or WebSockets. 3. Implement frontend logic to consume the streaming response and display it in a real-time, typing-like effect. 4. Update the prompt engineering logic to include previous messages from the current session as context for multi-turn conversations.",
+			"reasoning": "This is a highly complex task that introduces significant architectural changes. Implementing real-time streaming, managing conversation state across multiple sessions, and enhancing the AI's context with chat history are all advanced features."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "프론트엔드 UI/UX 구현 및 개선",
+			"complexityScore": 10,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Task 9, '프론트엔드 UI/UX 구현 및 개선', has a complexity score of 10. Expand this into 7 subtasks. The subtasks should be: 1. Implement the main application layout, including navigation and routing. 2. Build the user authentication pages (Registration, Login) and state management for user sessions. 3. Develop the note management interface, including a list view, detail/editor view, and create/delete functionality. 4. Create the UI for importing content from files (PDF, DOCX) and URLs. 5. Implement the complete AI chat interface, including message display, input area, and handling of streaming responses (from Task 8). 6. Build the UI for creating and managing note categories and filtering the note list. 7. Conduct a full review and implementation of responsive design across all developed pages and components.",
+			"reasoning": "This task has the highest complexity because it encompasses the entire frontend development effort for all application features. It involves building numerous complex, interconnected components and ensuring a cohesive, responsive user experience across the board."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "성능 최적화 및 보안 강화",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Task 10, '성능 최적화 및 보안 강화', has a complexity score of 7. Expand this into 4 subtasks. The subtasks should be: 1. Profile and optimize slow API endpoints and database queries, including adding necessary indexes. 2. Implement security best practices: enforce HTTPS, add CORS policies, and set up API rate limiting. 3. Develop and execute a load testing plan to identify and address performance bottlenecks under concurrent user load. 4. Enhance global error handling and implement structured logging for better monitoring and debugging in a production environment.",
+			"reasoning": "This is a complex, cross-cutting task that requires a deep understanding of the entire system to identify and fix performance bottlenecks and security vulnerabilities. It involves specialized activities like load testing, query optimization, and implementing security protocols."
+		}
+	]
+}

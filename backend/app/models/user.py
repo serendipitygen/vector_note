@@ -16,4 +16,5 @@ class User(Base):
     is_superuser = Column(Boolean, default=False)
 
     notes = relationship("Note", back_populates="user", cascade="all, delete-orphan")
-    chat_sessions = relationship("ChatSession", back_populates="user", cascade="all, delete-orphan") 
+    chat_sessions = relationship("ChatSession", back_populates="user", cascade="all, delete-orphan")
+    clipboard_logs = relationship("ClipboardProcessingLog", back_populates="user", cascade="all, delete-orphan") 

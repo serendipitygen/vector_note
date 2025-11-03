@@ -7,18 +7,9 @@ from app.core import security
 from app.core.config import settings
 from app.core.deps import get_db
 from app.models.user import User
-from pydantic import BaseModel, EmailStr
+from app.schemas.auth import UserCreate, Token, UserResponse
 
 router = APIRouter()
-
-class UserCreate(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 @router.post("/register", response_model=Token)
 def register(user_in: UserCreate, db: Session = Depends(get_db)) -> Any:
@@ -30,7 +21,7 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)) -> Any:
     if user:
         raise HTTPException(
             status_code=400,
-            detail="Username or email already registered"
+            detail="이미 등록된 사용자명 또는 이메일입니다."
         )
     
     # 새 사용자 생성
@@ -61,7 +52,15 @@ def login(
     if not user or not security.verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="사용자명 또는 비밀번호가 올바르지 않습니다.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # 비활성화된 사용자 확인
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="비활성화된 계정입니다.",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
@@ -70,4 +69,11 @@ def login(
     access_token = security.create_access_token(
         data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"} 
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@router.get("/me", response_model=UserResponse)
+def get_current_user_info(
+    current_user: User = Depends(security.get_current_user)
+) -> Any:
+    """현재 사용자 정보 조회"""
+    return current_user 
