@@ -1,0 +1,13 @@
+REACT_APP_API_URL=http://172.30.1.44:8000
+GOOGLE_API_KEY=AIzaSyB90ICT_GA1NSoA31QNNmIVI3a5LrIY0Pg
+POSTGRES_DATABASE_URL=postgresql://postgres:RYmkPtiTTVzgDnmEadlEqDfumghBjazF@gondola.proxy.rlwy.net:35219/railway
+DATABASE_URL=postgresql://postgres:RYmkPtiTTVzgDnmEadlEqDfumghBjazF@gondola.proxy.rlwy.net:35219/railway
+POSTGRES_PGUSER=postgres
+POSTGRES_PGPASSWORD=RYmkPtiTTVzgDnmEadlEqDfumghBjazF
+POSTGRES_PGDATABASE=railway
+POSTGRES_PGHOST=gondola.proxy.rlwy.net
+POSTGRES_PGPORT=35219
+POSTGRES_SERVER=gondola.proxy.rlwy.net
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=RYmkPtiTTVzgDnmEadlEqDfumghBjazF
+POSTGRES_DB=railway
